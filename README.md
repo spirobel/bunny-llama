@@ -22,6 +22,10 @@ bun clean-bunny
 
 ### To install dependencies:
 
+```bash
+bun install
+```
+
 (most likely you already have git and zig)
 
 Install zig with the right version:
