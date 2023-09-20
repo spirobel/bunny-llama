@@ -3,6 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "clean-llama": "rm -rf llama.cpp && echo 'Done.'",
+    "clean-bunny": "rm -rf build && echo 'Done.'",
     "format": "bunx biome format . --write"
   },
   "devDependencies": {
