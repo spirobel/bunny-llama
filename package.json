@@ -2,7 +2,11 @@
   "name": "bunny-llama",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "format": "bunx biome format . --write"
+  },
   "devDependencies": {
+    "@biomejs/biome": "1.2.2",
     "bun-types": "latest"
   },
   "peerDependencies": {
