@@ -1,15 +1,33 @@
 # bunny-llama
 
-To install dependencies:
+## What is this?
+
+A bunny that sits on top of a llama (and controls it).
+
+
+## To run:
 
 ```bash
-bun install
+bun buntils/clone_llama.ts
+bun buntils/make.ts
+bun ride.ts
 ```
 
-To run:
+### To clean:
 
-```bash
-bun run index.ts
+``` bash
+bun clean-llama
+bun clean-bunny
 ```
 
-This project was created using `bun init` in bun v1.0.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+### To install dependencies:
+
+(most likely you already have git and zig)
+
+Install zig with the right version:
+
+``` bash
+bun install -g @oven/zig
+```
+or update it as described [here](https://bun.sh/docs/project/development#install-zig)
+
