@@ -1,17 +1,21 @@
 {
-  "name": "bunny-llama",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "clean-llama": "rm -rf llama.cpp && echo 'Done.'",
-    "clean-bunny": "rm -rf build && echo 'Done.'",
-    "format": "bunx biome format . --write"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.2.2",
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  }
+	"name": "bunny-llama",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"clone": "bun buntils/clone_llama.ts",
+		"make": "bun buntils/make.ts",
+		"ride": "bun ride.ts",
+		"bunny-test":"cd bunny && zig build test",
+		"clean-llama": "rm -rf llama && echo 'Done.'",
+		"clean-bunny": "rm -rf build && echo 'Done.'",
+		"format": "bunx biome format . --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.2.2",
+		"bun-types": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
 }
