@@ -1,3 +1,6 @@
+bunny/zig-cache
+bun.lockb
+llama.cpp
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
 # Logs
