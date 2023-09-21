@@ -4,11 +4,15 @@
 	"type": "module",
 	"scripts": {
 		"clone": "bun buntils/clone_llama.ts",
-		"make": "bun buntils/make.ts",
+		"make": "bun make-llama && bun make-bunny",
 		"ride": "bun ride.ts",
-		"bunny-test":"cd bunny && zig build test",
-		"clean-llama": "rm -rf llama && echo 'Done.'",
+		"clean-llama-repo": "rm -rf llama && echo 'Done.'",
+		"clean-llama": "cd llama && make clean && echo 'Done.'",
 		"clean-bunny": "rm -rf build && echo 'Done.'",
+		"make-llama": "cd llama && make",
+		"make-cuda-llama": "cd llama && make LLAMA_CUBLAS=1",
+		"make-bunny":"cd bunny && zig build",
+		"bunny-test":"cd bunny && zig build test",
 		"format": "bunx biome format . --write"
 	},
 	"devDependencies": {

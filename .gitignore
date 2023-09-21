@@ -1,4 +1,5 @@
 bunny/zig-cache
+bunny/zig-out
 bun.lockb
 llama
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore

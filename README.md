@@ -8,8 +8,8 @@ A bunny that sits on top of a llama (and controls it).
 ## To run:
 
 ```bash
-bun buntils/clone_llama.ts
-bun buntils/make.ts
+bun clone
+bun make
 bun ride.ts
 ```
 
@@ -35,3 +35,17 @@ bun install -g @oven/zig
 ```
 or update it as described [here](https://bun.sh/docs/project/development#install-zig)
 
+For people with nvidia gpus:
+
+Download and install the [cuda toolkit.](https://developer.nvidia.com/cuda-downloads)
+
+then make the llama and the bunny separately, like so:
+
+```bash
+bun clone
+bun make-cuda-llama
+bun make-bunny
+bun ride.ts
+```
+
+now you have a special cuda enabled llama.
