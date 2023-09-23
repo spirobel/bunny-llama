@@ -16,8 +16,7 @@ bun ride.ts
 ### To clean:
 
 ``` bash
-bun clean-llama
-bun clean-bunny
+bun clean
 ```
 
 ### To install dependencies:
@@ -47,20 +46,19 @@ conda install cuda -c nvidia
 ```
 
 
-then make the llama and the bunny separately, like so:
+then make the llama with cuda, like so:
 
 ```bash
 bun clone
-bun make-cuda-llama
-bun make-bunny
+bun make-cuda
 bun ride.ts
 ```
 
 now you have a special cuda enabled llama.
 
-if you closed your shell and you want build the cuda llama again,
+if you closed your shell and you want to build the cuda llama again,
 you need to activate the conda environment first:
 ``` bash
 conda activate bunny
-bun make-cuda-llama
+bun make-cuda
 ```
