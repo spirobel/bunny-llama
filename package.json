@@ -4,11 +4,11 @@
 	"type": "module",
 	"scripts": {
 		"clone": "bun buntils/clone_llama.ts",
-		"make": "cd llama && make -j libllama.so",
+		"make": "cd llama.cpp && make -j libllama.so",
 		"make-cuda": "bun buntils/make_cuda_llama.ts",
 		"ride": "bun ride.ts",
-		"clean-llama-repo": "rm -rf llama && echo 'Done.'",
-		"clean": "cd llama && make clean && echo 'Done.'",
+		"clean-llama-repo": "rm -rf llama.cpp && echo 'Done.'",
+		"clean": "cd llama.cpp && make clean && echo 'Done.'",
 		"format": "bunx biome format . --write"
 	},
 	"devDependencies": {
