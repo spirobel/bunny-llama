@@ -10,7 +10,7 @@ import {
 
 // example init function that adds api-llama.so to global context
 // if you want to do this differently -> you can
-export async function global_llama(path: string) {
+export function global_llama(path: string) {
     const lib = dlopen(path, {
         load_model: {
             args: [FFIType.cstring],
