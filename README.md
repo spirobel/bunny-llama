@@ -4,10 +4,15 @@
 
 A bunny that sits on top of a llama (and controls it).
 
+## Hot module reloading
+
+``` bash
+ make api-llama.so && curl localhost:1337`realpath api-llama.so`
+```
 
 ## To run:
 
-```bash
+``` bash
 bun clone
 bun make
 bun ride.ts
