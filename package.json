@@ -7,6 +7,7 @@
 		"make": "cd llama.cpp && make -j libllama.so",
 		"make-cuda": "bun buntils/make_cuda_llama.ts",
 		"ride": "bun ride.ts",
+		"dev": "bun --hot dev.ts",
 		"clean-llama-repo": "rm -rf llama.cpp && echo 'Done.'",
 		"clean": "cd llama.cpp && make clean && echo 'Done.'",
 		"format": "bunx biome format . --write"
