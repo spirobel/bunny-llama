@@ -4,7 +4,6 @@ import {
     CString,
     ptr,
     JSCallback,
-    suffix,
     Pointer,
 } from "bun:ffi";
 
@@ -20,52 +19,53 @@ export function global_llama(path: string) {
             args: [FFIType.cstring, FFIType.ptr, FFIType.cstring, FFIType.function],
         },
     });
-    async function loadModel(params: string, prompt_callback?: PromptCallback) {
+    async function loadModel(params: string) {
         const str = Buffer.from(`${params}\0`, "utf8");
         const llama_parts = lib.symbols.load_model(ptr(str));
-        if (!prompt_callback) {
-            prompt_callback = (response: string) => console.log(response);
-        }
+
 
         global.llama._model = {
             llama_parts,
             params,
-            prompt_callback,
         };
 
-        function promptLLama(p: string, params?: string) {
-            const promptCallback = new JSCallback(
-                (response: FFIType.cstring) => {
-                    const js_string = new CString(response);
-                    prompt_callback!(js_string.toString());
-                },
-                {
-                    args: [FFIType.cstring],
-                },
-            );
-            if (!params) {
-                params = global.llama._model.params;
-            }
-            const params_cstr = Buffer.from(`${params}\0`, "utf8");
-            const prompt_cstr = Buffer.from(`${p}\0`, "utf8");
-
-            lib.symbols.prompt(
-                ptr(prompt_cstr),
-                global.llama._model.llama_parts,
-                ptr(params_cstr),
-                promptCallback,
-            );
-        }
-
-        global.llama.prompt = promptLLama;
-
-        return { llama_parts, params, prompt_callback };
+        return { llama_parts, params };
     }
 
     if (!global.llama) {
         global.llama = {} as LLama;
     }
     global.llama.load_model = loadModel;
+
+    function promptLLama(p: string, prompt_callback?: PromptCallback, params?: string) {
+        if (!prompt_callback) {
+            prompt_callback = (response: string) => { console.log(response); return true }
+        }
+        const promptCallback = new JSCallback(
+            (response: FFIType.cstring) => {
+                const js_string = new CString(response);
+                return prompt_callback!(js_string.toString());
+            },
+            {
+                args: [FFIType.cstring],
+                returns: "bool"
+            },
+        );
+        if (!params) {
+            params = global.llama._model.params;
+        }
+        const params_cstr = Buffer.from(`${params}\0`, "utf8");
+        const prompt_cstr = Buffer.from(`${p}\0`, "utf8");
+
+        lib.symbols.prompt(
+            ptr(prompt_cstr),
+            global.llama._model.llama_parts,
+            ptr(params_cstr),
+            promptCallback,
+        );
+    }
+    global.llama.prompt = promptLLama;
+
 }
 
 declare global {
@@ -74,15 +74,14 @@ declare global {
 export interface LLama {
     load_model: (
         params: string,
-        prompt_callback?: PromptCallback,
+
     ) => Promise<Model>;
-    prompt: (p: string, params?: string) => void;
+    prompt: (p: string, prompt_callback?: PromptCallback, params?: string) => void;
     _model: Model;
 }
 export interface Model {
     llama_parts: Pointer | null;
     params: string;
-    prompt_callback: PromptCallback;
 }
 
-export type PromptCallback = (response: string) => void;
+export type PromptCallback = (response: string) => boolean;
