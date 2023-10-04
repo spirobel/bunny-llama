@@ -4,6 +4,11 @@
 
 A bunny that sits on top of a llama (and controls it).
 
+On a more serious note:
+
+The bunny-llama project is a tool that uses [bun](https://bun.sh/) to interact with [llama.cpp](https://github.com/ggerganov/llama.cpp). It provides a way to quickly develop and test code using the llama.cpp bindings. The project also supports hot module reloading, which allows for changes in the code to be reflected in the running application without needing to manually restart it.
+
+This also means the model does not have to be reloaded anytime you make a change and recompile your custom prompting functions.
 ## Hot module reloading
 
 ``` bash
