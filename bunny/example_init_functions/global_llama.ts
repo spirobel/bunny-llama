@@ -16,7 +16,7 @@ export function global_llama(path: string) {
             returns: FFIType.ptr,
         },
         prompt: {
-            args: [FFIType.cstring, FFIType.ptr, FFIType.cstring, FFIType.function],
+            args: [FFIType.cstring, FFIType.ptr, FFIType.cstring, FFIType.function, FFIType.cstring],
         },
     });
     async function loadModel(params: string) {
@@ -37,7 +37,7 @@ export function global_llama(path: string) {
     }
     global.llama.load_model = loadModel;
 
-    function promptLLama(p: string, prompt_callback?: PromptCallback, params?: string) {
+    function promptLLama(p: string, grammmar?: string, prompt_callback?: PromptCallback, params?: string) {
         if (!prompt_callback) {
             prompt_callback = (response: string) => { console.log(response); return true }
         }
@@ -56,12 +56,13 @@ export function global_llama(path: string) {
         }
         const params_cstr = Buffer.from(`${params}\0`, "utf8");
         const prompt_cstr = Buffer.from(`${p}\0`, "utf8");
-
+        const grammar_string = grammmar ? ptr(Buffer.from(`${grammmar}\0`, "utf8")) : 0;
         lib.symbols.prompt(
             ptr(prompt_cstr),
             global.llama._model.llama_parts,
             ptr(params_cstr),
             promptCallback,
+            grammar_string
         );
     }
     global.llama.prompt = promptLLama;
@@ -76,7 +77,7 @@ export interface LLama {
         params: string,
 
     ) => Promise<Model>;
-    prompt: (p: string, prompt_callback?: PromptCallback, params?: string) => void;
+    prompt: (p: string, grammmar?: string, prompt_callback?: PromptCallback, params?: string) => void;
     _model: Model;
 }
 export interface Model {
