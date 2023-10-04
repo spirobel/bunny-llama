@@ -20,7 +20,7 @@ This also means **the model does not have to be reloaded** every time you make a
 ``` bash
 bun clone
 bun make
-bun ride.ts
+bun ride
 ```
 
 ### To clean:
