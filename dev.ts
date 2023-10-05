@@ -5,7 +5,7 @@ function init(path: string) {
 	global_llama(path);
 	if (!llama._model) {
 		llama.load_model(
-			`llama --log-disable --model models/model.gguf --ctx-size 2048 `,
+			`llama --log-disable --model models/model.gguf --ctx-size 2048 -ngl 51 `,
 		);
 	}
 
