@@ -33,7 +33,10 @@ export default async function bunny_hmr(
 
 	async function loadLibrary(count: number) {
 		const from = path.resolve(dlpath);
-		const to = path.resolve(paths.TEMPORARY_HMR_LIBRARY_DIR, path.basename(dlpath) + count + ".so");
+		const to = path.resolve(
+			paths.TEMPORARY_HMR_LIBRARY_DIR,
+			path.basename(dlpath) + count + ".so",
+		);
 
 		await Bun.spawn(["cp", from, to]).exited;
 		init_func(to);

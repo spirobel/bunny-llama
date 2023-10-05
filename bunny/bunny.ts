@@ -2,7 +2,7 @@ import * as path from "path";
 
 export const paths = {
 	TEMPORARY_HMR_LIBRARY_DIR: "/tmp/bunny-llama-reloader/",
-	LIB_PATH: "llama.cpp/api-llama.so"
+	LIB_PATH: "llama.cpp/api-llama.so",
 };
 
 export default async function bunny(
