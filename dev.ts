@@ -12,4 +12,4 @@ function init(path: string) {
 	console.log(llama._model);
 	llama.prompt(`Hello my name is 🐰`);
 }
-bunny_hmr(init, "../llama.cpp/api-llama.so");
+bunny_hmr(init);

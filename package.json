@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"clone": "bun buntils/clone_llama.ts",
-		"make": "cd llama.cpp && make -j libllama.so",
+		"make": "cd llama.cpp && make -j api-llama.so",
 		"make-cuda": "bun buntils/make_cuda_llama.ts",
 		"ride": "bun --hot dev.ts",
 		"dev": "bun --hot dev.ts",
