@@ -5,6 +5,7 @@ import {
     ptr,
     JSCallback,
     Pointer,
+    read
 } from "bun:ffi";
 
 // example init function that adds api-llama.so to global context
@@ -41,13 +42,31 @@ export function global_llama(path: string) {
         if (!prompt_callback) {
             prompt_callback = (response: string) => { process.stdout.write(response); return true }
         }
+
         const promptCallback = new JSCallback(
-            (response: FFIType.cstring) => {
-                const js_string = new CString(response);
-                return prompt_callback!(js_string.toString());
+            (response: FFIType.cstring, l: FFIType.u64) => {
+                const js_string = new CString(response, 0, l);
+                console.log(js_string)
+                let numbers = []
+                for (let i = 0; i < l; i++) {
+                    const n = read.u8(response, i)
+                    numbers.push(n)
+                    /*
+                    FIRST u8  HEX  DEZ FOLLOWING u8  HEX DEZ
+        Single byte 0XXXXXXX 	   DEZ N/A 	
+        Two bytes 	110XXXXX   C0  192 10XXXXXX 	 80  128
+        Three bytes 1110XXXX   E0  224 10XXXXXX      80  128
+        Four bytes 	11110XXX   F0  240 10XXXXXX      80  128
+                    */
+                    console.log(n)
+                    console.log(n.toString(16))
+                }
+                return prompt_callback!(new TextDecoder().decode(new Uint8Array(numbers)));
+
+
             },
             {
-                args: [FFIType.cstring],
+                args: [FFIType.cstring, FFIType.u64],
                 returns: "bool"
             },
         );
@@ -84,3 +103,38 @@ export interface Model {
 }
 
 export type PromptCallback = (response: string) => boolean;
+
+//helper to make sure we have a full unicode character:
+function isCompleteUnicode(buffer: ArrayBuffer) {
+    try {
+        const decoder = new TextDecoder();
+        decoder.decode(buffer);
+        return true;
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+}
+function arrayBufferToString(buffer: ArrayBuffer) {
+    const decoder = new TextDecoder('utf-8');
+    const string = decoder.decode(buffer);
+    return string;
+}
+function concatArrayBuffers(buffers: ArrayBuffer[]) {
+    // Calculate the total size of the new ArrayBuffer
+    const totalSize = buffers.reduce((total, buffer) => total + buffer.byteLength, 0);
+
+    // Create the new ArrayBuffer and a typed array that views it
+    const resultBuffer = new ArrayBuffer(totalSize);
+    const resultView = new Uint8Array(resultBuffer);
+
+    // Copy the data from the input ArrayBuffers to the new ArrayBuffer
+    let offset = 0;
+    for (const buffer of buffers) {
+        const view = new Uint8Array(buffer);
+        resultView.set(view, offset);
+        offset += buffer.byteLength;
+    }
+
+    return resultBuffer;
+}

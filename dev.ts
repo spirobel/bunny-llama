@@ -8,13 +8,6 @@ function init(path: string) {
 	}
 
 	console.log(llama._model)
-	llama.prompt(`### System Prompt
-		You are an intelligent programming assistant.
-
-		### User Message
-		Implement a linked list in C
-
-		### Assistant
-		`)
+	llama.prompt(`Hello my name is 🐰`)
 }
 bunny_hmr(init, "../llama.cpp/api-llama.so");
