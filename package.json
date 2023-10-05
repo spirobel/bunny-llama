@@ -4,8 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"clone": "bun buntils/clone_llama.ts",
-		"make": "cd llama.cpp && make -j api-llama.so",
-		"make-cuda": "bun buntils/make_cuda_llama.ts",
+		"make": "cd llama.cpp && make -j api-llama.so && curl localhost:1337 > /dev/null 2>&1; exit 0;",
+		"make-cuda": "bun buntils/make_cuda_llama.ts && curl localhost:1337 > /dev/null 2>&1; exit 0;",
 		"ride": "bun --hot dev.ts",
 		"dev": "bun --hot dev.ts",
 		"clean-llama-repo": "rm -rf llama.cpp && echo 'Done.'",

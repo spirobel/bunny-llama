@@ -11,9 +11,12 @@ The bunny-llama project is a tool that uses [bun](https://bun.sh/) to interact w
 This also means **the model does not have to be reloaded** every time you make a change and **recompile your custom prompting functions**.
 ## Hot module reloading
 
+under the hood in the llama.cpp dir:
 ``` bash
  make api-llama.so && curl localhost:1337
 ```
+
+```bun make``` and ```bun make-cuda``` will take care of the curl already.
 
 ## To run:
 
