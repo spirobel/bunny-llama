@@ -1,5 +1,7 @@
 # bunny-llama
-
+![js_hmr](./buntils/img/js_hmr.gif)
+![cuda_hmr](./buntils/img/cuda_hmr.gif)
+[demo video](https://www.youtube.com/watch?v=H9f7Np_zUzc)
 ## What is this?
 
 A bunny that sits on top of a llama (and controls it).
