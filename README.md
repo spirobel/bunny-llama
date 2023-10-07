@@ -34,20 +34,11 @@ bun ride
 bun clean
 ```
 
-### To install dependencies:
-
-```bash
-bun install
-```
-
-(most likely you already have git and zig)
-
-Install zig with the right version:
+### To install bun:
 
 ``` bash
-bun install -g @oven/zig
+curl -fsSL https://bun.sh/install | bash
 ```
-or update it as described [here](https://bun.sh/docs/project/development#install-zig)
 
 ## Nvidia llama
 
@@ -63,7 +54,7 @@ conda install cuda -c nvidia
 
 then make the llama with cuda, like so:
 
-```bash
+``` bash
 bun clone
 bun make-cuda
 bun ride.ts
